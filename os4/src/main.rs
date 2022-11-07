@@ -2,11 +2,7 @@
 #![no_main]
 #![feature(panic_info_message)]
 #![feature(alloc_error_handler)]
-
-#[macro_use]
-extern crate bitflags;
-#[macro_use]
-extern crate log;
+#![feature(step_trait)]
 
 extern crate alloc;
 
@@ -45,9 +41,8 @@ pub fn rust_main() -> ! {
     println!("[kernel] Hello, world!");
     mm::init();
     println!("[kernel] back to world!");
-    mm::remap_test();
+    mm::memory_set::remap_test();
     trap::init();
-    //trap::enable_interrupt();
     trap::enable_timer_interrupt();
     timer::set_next_trigger();
     task::run_first_task();
